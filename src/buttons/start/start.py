@@ -1,10 +1,12 @@
 from aiogram import types
 
 
+login_button = types.KeyboardButton(text='Войти')
+
+
 async def start_keyboard() -> types.ReplyKeyboardMarkup:
-    start_button = types.KeyboardButton(text='Войти')
     markup = types.ReplyKeyboardMarkup(
-        keyboard=[[start_button],],
+        keyboard=[[login_button], ],
         resize_keyboard=True
     )
     return markup

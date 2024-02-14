@@ -3,13 +3,14 @@ from aiogram.filters.command import Command
 from aiogram.fsm.context import FSMContext
 
 from src.buttons.login.contact_getter import contact_keyboard
+from src.buttons.start.start import login_button
 from src.handlers.login.router import login_router
 from src.state.login import LoginState
 from src.template.render import render
 
 
 # @login_router.message(Command("login",))
-@login_router.message(F.text == "Войти", LoginState.unauthorized)  # TODO узнать можно ли так
+@login_router.message(F.text == login_button, LoginState.unauthorized)  # TODO узнать можно ли так
 async def share_number(message: types.Message, state: FSMContext):
     await state.set_state(LoginState.get_phone)
     await message.answer("Нажмите на кнопку ниже, чтобы отправить контакт", reply_markup=await contact_keyboard())
