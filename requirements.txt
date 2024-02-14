@@ -1,0 +1,5 @@
+aiogram==3.3.0
+redis==5.0.1
+orjson==3.9.14
+pydantic-settings==2.1.0
+Jinja2==3.1.3
