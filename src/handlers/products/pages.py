@@ -2,7 +2,8 @@ from aiogram import types
 from aiogram.fsm.context import FSMContext
 
 from conf.config import settings
-from src.buttons.categories.config import ProductCallback, ProductPaginationCallback
+from src.buttons.categories.config import ProductCallback
+from src.buttons.products.config import ProductPaginationCallback
 from src.buttons.products.getter import get_products_buttons
 from src.handlers.products.router import products_router
 from src.logger import logger
