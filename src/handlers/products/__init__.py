@@ -1,1 +1,1 @@
-# from .start import start_random
+from .pages import products_callback_handler

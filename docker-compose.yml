@@ -1,14 +1,29 @@
 version: '3.9'
 
 services:
-
-  redis:
-    container_name: redis
-    image: redis:6.2.4
+  bot:
+    container_name: bot
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
     ports:
-      - "6379:6379"
+      - "8005:8005"
+    command: scripts/web/startup.sh -m -l
+    restart: on-failure
+    env_file:
+      - ./conf/.env
+    volumes:
+      - .:/code
     networks:
       - sirius_network
+
+#  redis:
+#    container_name: redis
+#    image: redis:6.2.4
+#    ports:
+#      - "6379:6379"
+#    networks:
+#      - sirius_network
 
 networks:
   sirius_network:
