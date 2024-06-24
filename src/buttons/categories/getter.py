@@ -8,7 +8,7 @@ def get_categories_buttons(data: list, offset: int = 0) -> InlineKeyboardMarkup:
     kb = [
         [
             types.InlineKeyboardButton(
-                text=f"{category['name']} {category['id']}",
+                text=f" {category['name']} ",
                 callback_data=ProductCallback(
                     id=category['id'],
                 ).pack()

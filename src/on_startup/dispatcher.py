@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 
+from src.handlers.basket.router import basket_router
 from src.handlers.catigories.router import categories_router
 # from src.handlers.admin.router import admin_router
 from src.handlers.menu.customer.router import customer_router
@@ -21,6 +22,7 @@ def setup_dispatcher(bot: Bot) -> Dispatcher:
     dp.include_routers(products_router)
     dp.include_routers(categories_router)
     dp.include_routers(delivery_router)
+    dp.include_routers(basket_router)
 
     dp.message.middleware(LogMessageMiddleware())
     dp.callback_query.middleware(LogMessageMiddleware())
