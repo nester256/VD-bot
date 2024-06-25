@@ -1,0 +1,8 @@
+<b>Заказы для доставки:</b>
+
+{% for order in orders %}
+    <b>Заказ: {{ order.order_id }}</b>
+    {% for product in order.products %}
+       - {{ product.product_name }} - Количество: {{ product.quantity }}
+    {% endfor %}
+{% endfor %}

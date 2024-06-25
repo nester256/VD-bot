@@ -45,7 +45,7 @@ async def basket_remove_callback_handler(callback: types.CallbackQuery, callback
         await remove_from_cart(user_id, product_id)
         cart = await get_cart(user_id)
         await send_cart_buttons(cart, callback)
-        await callback.message.answer(text=f"Успешное удаление товара из корзины!")
+        await callback.message.answer(text='Успешное удаление товара из корзины!')
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)
         logger.error(f'Ошибка при удалении товара из корзины: {err}')
@@ -58,13 +58,12 @@ async def create_order_callback_handler(callback: types.CallbackQuery) -> None:
         user_id = callback.from_user.id
         basket_info = await get_cart_summary(user_id)
         res = await send_basket(basket_info)
-        print(basket_info)
         if not res:
             await callback.message.answer(settings.DEFAULT_ERROR_MSG)
-            logger.error(f'Ошибка при создании заказа - ошибка бэка')
+            logger.error('Ошибка при создании заказа - ошибка бэка')
         else:
             await clear_cart(user_id)
-            await callback.message.answer(text=f"Заказ успешно создан!")
+            await callback.message.answer(text='Заказ успешно создан!')
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)
         logger.error(f'Ошибка при создании заказа: {err}')

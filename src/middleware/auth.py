@@ -8,8 +8,6 @@ from aiogram.types import TelegramObject
 
 from src.requests.user import get_user_token_request
 
-from conf.config import settings
-
 access_token_cxt: ContextVar[str] = ContextVar('access_token_cxt')
 
 

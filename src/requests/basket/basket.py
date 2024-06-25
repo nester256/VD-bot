@@ -8,12 +8,6 @@ from conf.config import settings
 async def send_basket(cart_info: dict) -> bool:
     _, status = await do_request(
         f'{settings.BACKEND_HOST}/api/v1/orders/create',
-        # headers={
-        #     'Authorization': f'Bearer {settings.BACKEND_API_KEY}'
-        # },
         params={'products': cart_info},
     )
-    print({'products': cart_info})
-    if status != HTTP_201_CREATED:
-        return False
-    return True
+    return status == HTTP_201_CREATED

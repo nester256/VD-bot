@@ -7,6 +7,7 @@ from src.handlers.main.router import main_router
 from src.handlers.menu.customer.router import customer_router
 from src.handlers.menu.deliverer.router import delivery_router
 from src.handlers.orders.customer.router import orders_router
+from src.handlers.orders.deliverer.router import orders_deliverer_router
 from src.handlers.products.router import products_router
 from src.integrations.redis import redis
 from src.middleware.auth import AuthMiddleware
@@ -24,6 +25,7 @@ def setup_dispatcher(bot: Bot) -> Dispatcher:
     dp.include_routers(delivery_router)
     dp.include_routers(basket_router)
     dp.include_routers(orders_router)
+    dp.include_routers(orders_deliverer_router)
 
     dp.message.middleware(LogMessageMiddleware())
     dp.callback_query.middleware(LogMessageMiddleware())
