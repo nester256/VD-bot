@@ -10,23 +10,18 @@ def get_product_buttons(product: dict) -> InlineKeyboardMarkup:
     kb = [
         [
             types.InlineKeyboardButton(
-                text="⬅️",
+                text='⬅️',
                 callback_data=ProductCallback(
                     id=product['category_id'],
-                ).pack()
+                ).pack(),
             ),
+            types.InlineKeyboardButton(text='🏠', callback_data=SHOW_MENU_CALLBACK),
             types.InlineKeyboardButton(
-                text="🏠",
-                callback_data=SHOW_MENU_CALLBACK
-            ),
-            types.InlineKeyboardButton(
-                text="🛒",
+                text='🛒',
                 callback_data=AddToBasketCallback(
-                    id=int(product['id']),
-                    name=str(product['name']),
-                    price=float(product['price'])
-                ).pack()
-            )
+                    id=int(product['id']), name=str(product['name']), price=float(product['price'])
+                ).pack(),
+            ),
         ],
     ]
     return types.InlineKeyboardMarkup(inline_keyboard=kb)

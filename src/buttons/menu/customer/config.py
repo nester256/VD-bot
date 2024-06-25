@@ -1,3 +1,5 @@
 SHOW_MENU_CALLBACK = 'menu'
 
 SHOW_BASKET_CALLBACK = 'basket'
+
+SHOW_ORDERS_CALLBACK = 'orders'

@@ -7,9 +7,9 @@ from src.requests import do_request
 from conf.config import settings
 
 
-async def get_categories(offset: int, limit: int = 5) -> List:
+async def get_orders() -> List:
     response, status = await do_request(
-        f'{settings.BACKEND_HOST}/api/v1/categories?limit={limit}&offset={offset}',
+        f'{settings.BACKEND_HOST}/api/v1/orders/list',
         method='GET',
         # headers={
         #     'Authorization': f'Bearer {settings.BACKEND_API_KEY}'
@@ -17,4 +17,4 @@ async def get_categories(offset: int, limit: int = 5) -> List:
     )
     if status != HTTP_200_OK:
         return None
-    return response['categories']
+    return response['orders']

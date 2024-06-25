@@ -1,27 +1,29 @@
-from aiogram import types, F
-from aiogram.fsm.context import FSMContext
+from aiogram import F, types
 
-from conf.config import settings
 from src.buttons.menu.customer.config import SHOW_BASKET_CALLBACK
-from src.buttons.product.config import AddToBasketCallback, RemoveBasketCallback, CREATE_ORDER_CALLBACK
-from src.handlers.basket.cart import add_to_cart, get_cart, send_cart_buttons, remove_from_cart, get_cart_summary, \
-    clear_cart
+from src.buttons.product.config import CREATE_ORDER_CALLBACK, AddToBasketCallback, RemoveBasketCallback
+from src.handlers.basket.cart import (
+    add_to_cart,
+    clear_cart,
+    get_cart,
+    get_cart_summary,
+    remove_from_cart,
+    send_cart_buttons,
+)
 from src.handlers.basket.router import basket_router
 from src.logger import logger
 from src.requests.basket.basket import send_basket
 
+from conf.config import settings
+
 
 @basket_router.callback_query(AddToBasketCallback.filter())
 async def basket_add_callback_handler(callback: types.CallbackQuery, callback_data: AddToBasketCallback) -> None:
-    product = {
-        "id": callback_data.id,
-        "name": callback_data.name,
-        "price": callback_data.price
-    }
+    product = {'id': callback_data.id, 'name': callback_data.name, 'price': callback_data.price}
     try:
         user_id = callback.from_user.id
         await add_to_cart(user_id, product)
-        await callback.message.answer(text=f"Успешное добавление товара в корзину!")
+        await callback.message.answer(text='Успешное добавление товара в корзину!')
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)
         logger.error(f'Ошибка при добавлении товара в корзину: {err}')

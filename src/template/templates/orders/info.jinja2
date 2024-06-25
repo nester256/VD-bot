@@ -1,0 +1,15 @@
+<b>Заказы:</b>
+
+<b>Актуальные заказы:</b>
+{% for order in active_orders %}
+    Заказ ID: {{ order.order_id }}
+    Статус: {{ order.status }}
+    Общая стоимость: {{ order.total_cost }}
+{% endfor %}
+
+<b>Завершенные заказы:</b>
+{% for order in complete_orders %}
+    Заказ ID: {{ order.order_id }}
+    Статус: {{ order.status }}
+    Общая стоимость: {{ order.total_cost }}
+{% endfor %}

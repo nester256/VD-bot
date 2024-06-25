@@ -1,7 +1,6 @@
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 
-from conf.config import settings
 from src.buttons.categories.config import ProductCallback
 from src.buttons.products.config import ProductPaginationCallback
 from src.buttons.products.getter import get_products_buttons
@@ -10,10 +9,13 @@ from src.logger import logger
 from src.requests.products.products import get_products
 from src.template.render import render
 
+from conf.config import settings
+
 
 @products_router.callback_query(ProductCallback.filter())
-async def products_callback_handler(callback: types.CallbackQuery, callback_data: ProductCallback,
-                                    state: FSMContext) -> None:
+async def products_callback_handler(
+    callback: types.CallbackQuery, callback_data: ProductCallback, state: FSMContext
+) -> None:
     cat_id = int(callback_data.id)
     try:
         await callback.message.delete()
@@ -27,7 +29,7 @@ async def products_callback_handler(callback: types.CallbackQuery, callback_data
                 'products/prod_msg.jinja2',
             ),
             parse_mode='HTML',
-            reply_markup=get_products_buttons(products, cat_id)
+            reply_markup=get_products_buttons(products, cat_id),
         )
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)
@@ -35,8 +37,9 @@ async def products_callback_handler(callback: types.CallbackQuery, callback_data
 
 
 @products_router.callback_query(ProductPaginationCallback.filter())
-async def handle_pagination_products(callback: types.CallbackQuery, callback_data: ProductPaginationCallback,
-                                     state: FSMContext):
+async def handle_pagination_products(
+    callback: types.CallbackQuery, callback_data: ProductPaginationCallback, state: FSMContext
+):
     offset = int(callback_data.offset)
     cat_id = int(callback_data.c_id)
     try:
@@ -51,7 +54,7 @@ async def handle_pagination_products(callback: types.CallbackQuery, callback_dat
                 'products/prod_msg.jinja2',
             ),
             parse_mode='HTML',
-            reply_markup=get_products_buttons(products, cat_id, offset)
+            reply_markup=get_products_buttons(products, cat_id, offset),
         )
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)

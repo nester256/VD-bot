@@ -28,4 +28,5 @@ class Settings(BaseSettings):
 
     NOTHING_ERROR_MSG: str = 'По указанной странице ничего не найдено'
 
+
 settings = Settings()

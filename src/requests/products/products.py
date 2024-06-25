@@ -1,8 +1,10 @@
 from typing import List
 
-from conf.config import settings
-from src.requests import do_request
 from starlette.status import HTTP_200_OK
+
+from src.requests import do_request
+
+from conf.config import settings
 
 
 async def get_products(offset: int, cat_id: int = None, limit: int = 10) -> List:

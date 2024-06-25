@@ -21,8 +21,11 @@ class ClientSessionWithCorrId(aiohttp.ClientSession):
 
 
 async def do_request(
-    url: str, params: Optional[Dict[str, Any]] = None, headers: Optional[Dict[str, Any]] = None,
-    data: Any = None, method: str = 'POST'
+    url: str,
+    params: Optional[Dict[str, Any]] = None,
+    headers: Optional[Dict[str, Any]] = None,
+    data: Any = None,
+    method: str = 'POST',
 ) -> Any:
     from src.middleware.auth import access_token_cxt
 
@@ -43,16 +46,10 @@ async def do_request(
     ) as session:
         for _ in range(settings.RETRY_COUNT):
             try:
-                async with session.request(
-                    method,
-                    url,
-                    headers=headers_,
-                    json=params,
-                    data=data
-                ) as response:
-                    if (
-                        response.content_type == 'application/json' and\
-                        response.status in (status.HTTP_200_OK, status.HTTP_201_CREATED)
+                async with session.request(method, url, headers=headers_, json=params, data=data) as response:
+                    if response.content_type == 'application/json' and response.status in (
+                        status.HTTP_200_OK,
+                        status.HTTP_201_CREATED,
                     ):
                         return await response.json(), response.status
                     return None, response.status
@@ -66,8 +63,6 @@ async def do_request(
     raise RuntimeError('Unsupported')
 
 
-async def check_response_status(
-    response: aiohttp.ClientResponse
-) -> Optional[aiohttp.ClientResponseError]:
+async def check_response_status(response: aiohttp.ClientResponse) -> Optional[aiohttp.ClientResponseError]:
     if response.status >= status.HTTP_500_INTERNAL_SERVER_ERROR:
         raise RuntimeError

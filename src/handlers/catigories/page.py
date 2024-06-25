@@ -1,13 +1,14 @@
 from aiogram import F, types
 from aiogram.fsm.context import FSMContext
 
-from conf.config import settings
 from src.buttons.categories.config import SHOW_CAT_CALLBACK, PaginationCallback
 from src.buttons.categories.getter import get_categories_buttons
 from src.handlers.catigories.router import categories_router
 from src.logger import logger
 from src.requests.categories.categories import get_categories
 from src.template.render import render
+
+from conf.config import settings
 
 
 @categories_router.callback_query(F.data == SHOW_CAT_CALLBACK)
@@ -24,7 +25,7 @@ async def categories_callback_handler(callback: types.CallbackQuery, state: FSMC
                 'categories/cat_msg.jinja2',
             ),
             parse_mode='HTML',
-            reply_markup=get_categories_buttons(categories, 0)
+            reply_markup=get_categories_buttons(categories, 0),
         )
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)
@@ -32,7 +33,9 @@ async def categories_callback_handler(callback: types.CallbackQuery, state: FSMC
 
 
 @categories_router.callback_query(PaginationCallback.filter())
-async def handle_pagination_categories(callback: types.CallbackQuery, callback_data: PaginationCallback, state: FSMContext):
+async def handle_pagination_categories(
+    callback: types.CallbackQuery, callback_data: PaginationCallback, state: FSMContext
+):
     offset = int(callback_data.offset)
     try:
         await callback.message.delete()
@@ -46,7 +49,7 @@ async def handle_pagination_categories(callback: types.CallbackQuery, callback_d
                 'categories/cat_msg.jinja2',
             ),
             parse_mode='HTML',
-            reply_markup=get_categories_buttons(categories, offset)
+            reply_markup=get_categories_buttons(categories, offset),
         )
     except Exception as err:
         await callback.message.answer(settings.DEFAULT_ERROR_MSG)

@@ -1,9 +1,8 @@
 from typing import Optional
 
-from starlette.status import HTTP_201_CREATED, HTTP_200_OK
+from starlette.status import HTTP_200_OK, HTTP_201_CREATED
 
 from src.requests import do_request
-from src.logger import logger
 
 from conf.config import settings
 
@@ -14,10 +13,7 @@ async def create_user_request(id: int, username: str) -> bool:
         # headers={
         #     'Authorization': f'Bearer {settings.BACKEND_API_KEY}'
         # },
-        params={
-            'id': id,
-            'username': username
-        },
+        params={'id': id, 'username': username},
     )
     if status != HTTP_201_CREATED:
         return False
@@ -38,6 +34,7 @@ async def get_user_token_request(user_id: int) -> Optional[str]:
 
     return response['access_token']
 
+
 async def get_user_info() -> dict:
     response, status = await do_request(
         f'{settings.BACKEND_HOST}/api/v1/auth/info',
@@ -48,10 +45,5 @@ async def get_user_info() -> dict:
     )
     if status != HTTP_200_OK:
         return None
-    info = {
-            'id': response['id'],
-            'role': response['role'],
-            'address': response['address']
-    }
+    info = {'id': response['id'], 'role': response['role'], 'address': response['address']}
     return info
-

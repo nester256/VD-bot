@@ -1,6 +1,8 @@
-from conf.config import settings
-from src.requests import do_request
 from starlette.status import HTTP_201_CREATED
+
+from src.requests import do_request
+
+from conf.config import settings
 
 
 async def send_basket(cart_info: dict) -> bool:
@@ -9,7 +11,7 @@ async def send_basket(cart_info: dict) -> bool:
         # headers={
         #     'Authorization': f'Bearer {settings.BACKEND_API_KEY}'
         # },
-        params={'products': cart_info}
+        params={'products': cart_info},
     )
     print({'products': cart_info})
     if status != HTTP_201_CREATED:
