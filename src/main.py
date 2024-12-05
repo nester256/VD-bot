@@ -6,7 +6,7 @@ from typing import AsyncIterator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# from src.api.tg.router import tg_router
+from src.api.tg.router import tg_router
 from src.integrations.tg_bot import bot
 from src.middleware.logger import LogServerMiddleware
 from src.on_startup.logger import setup_logger

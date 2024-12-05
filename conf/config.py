@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     WEBHOOK_URL: str = ''
 
     REDIS_HOST: str = 'redis'
-    REDIS_PORT: int = 6379
+    REDIS_PORT: int = 6380
     REDIS_PASSWORD: str
     REDIS_DB: int = 0
 
@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     DEFAULT_ERROR_MSG: str = 'Произошла ошибка, попробуйте ещё раз'
 
-    BACKEND_HOST: str = 'http://web:8000'
+    BACKEND_HOST: str = 'http://web:8010'
 
     MENU_PHOTO: str = 'https://png.klev.club/uploads/posts/2024-04/png-klev-club-ccvi-p-nadpis-menyu-png-13.png'
 
